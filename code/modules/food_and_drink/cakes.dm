@@ -21,6 +21,31 @@
 	w_class = 3
 	food_effects = list("food_energized", "food_cold")
 
+/obj/item/reagent_containers/food/snacks/dense_cake
+	name = "Extremely Dense Chocolate Cake"
+	desc = "How can something made out of chocolate and bread be so dense?"
+	icon = 'icons/obj/foodNdrink/food_dessert.dmi'
+	icon_state = "cake_chocolate"
+	amount = 12
+	heal_amt = 2
+	custom_food = 0
+	initial_volume=250
+	New()
+		..()
+		reagents.add_reagent("chocolate", 50)
+		reagents.add_reagent("honey", 50)
+		reagents.add_reagent("bubs", 25)
+		reagents.add_reagent("cholesterol", 50)
+	w_class = 3
+	food_effects = list("food_energized", "food_cold")
+	on_bite(mob/eater)
+		..()
+		var/mob/living/carbon/human/HH = eater
+		if (!HH || !ishuman(HH))
+			return
+		if(HH.bioHolder && !HH.bioHolder.HasEffect("fat"))
+			HH.bioHolder.AddEffect("fat")
+		return	  
 /obj/item/reagent_containers/food/snacks/cake/custom
 	name = "cake"
 	desc = "a cake"
@@ -134,7 +159,7 @@
 		reagents.add_reagent("honey", 10)
 		reagents.add_reagent("cornstarch", 5)
 		reagents.add_reagent("pollen", 20)
-
+	
 /obj/item/reagent_containers/food/snacks/cake/cream
 	name = "cream sponge cake"
 	desc = "Mmm! A delicious-looking cream sponge cake!"
